@@ -80,39 +80,53 @@ def send_email(attempt):
     formatted_time = format_timestamp(attempt['timestamp'])
     
     body = f"""
-================================================================================
-                     SSH FAILED LOGIN ATTEMPT DETECTED
-================================================================================
+🚨 SECURITY ALERT
 
-INCIDENT DETAILS
---------------------------------------------------------------------------------
+Failed SSH Login Attempt
+─────────────────────────
 
-    Time                  :  {formatted_time}
-    
-    Target Hostname       :  {attempt['hostname']}
-    
-    Username Attempted    :  {attempt['user']}
-    
-    Source IP Address     :  {attempt['ip']}
-    
-    Source Port           :  {attempt['port']}
+📅 {formatted_time}
 
+🖥️  SERVER
+   {attempt['hostname']}
 
-NOTIFICATION
---------------------------------------------------------------------------------
+👤 USERNAME
+   {attempt['user']}
 
-    This is an automated security alert from your SSH monitoring system.
-    
-    A failed authentication attempt has been detected and logged on your
-    server. Please review this incident and take appropriate action if the
-    activity appears suspicious or unauthorized.
-    
-    All failed login attempts are logged to: /var/log/failed_ssh_attempts.log
+🌐 SOURCE IP
+   {attempt['ip']}
+
+🔌 PORT
+   {attempt['port']}
 
 
-================================================================================
-SSH Alert Monitor • Protecting {attempt['hostname']} 
-================================================================================
+ℹ️  WHAT HAPPENED?
+─────────────────────────
+
+An unauthorized login attempt was 
+detected on your server. The 
+authentication failed and the 
+incident has been logged.
+
+
+✅ NEXT STEPS
+─────────────────────────
+
+• Review the source IP for 
+  suspicious activity
+
+• Check if this IP should be 
+  blocked
+
+• Monitor for repeated attempts
+
+• View full logs at:
+  /var/log/failed_ssh_attempts.log
+
+
+───────────────────────────────
+SSH Alert Monitor v1.0
+Securing {attempt['hostname']} 24/7
 """
     
     try:
