@@ -1,0 +1,14 @@
+[Unit]
+Description=SSH Failed Login Alert Monitor Service
+After=network.target auditd.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/ssh_alert_monitor.py
+Restart=always
+User=root
+# Ensure systemd can read auth logs; standard user might need adjustments/permissions
+# Standard configuration uses root, which is fine for system scripts
+
+[Install]
+WantedBy=multi-user.target
